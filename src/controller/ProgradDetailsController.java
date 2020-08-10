@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import model.Prograd;
+import service.ExcelGenerator;
 
 
 @WebServlet(urlPatterns = { "/prograd" })
@@ -36,7 +40,7 @@ public class ProgradDetailsController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/* uncomment the code below to see the final output
+		// uncomment the code below to see the final output
 		String name = request.getParameter("name");
 		String id = request.getParameter("id");
 		String rate=request.getParameter("rating");
@@ -69,7 +73,7 @@ public class ProgradDetailsController extends HttpServlet {
 		prograd.setId(id);
 		prograd.setComment(comment);
 		prograd.setRate(rate);
-	
+		List<Prograd>list=null;
 		list.add(prograd);
 
 		if (submit != null) {
@@ -83,12 +87,12 @@ public class ProgradDetailsController extends HttpServlet {
 		}
 
 		ExcelGenerator excel=new ExcelGenerator();
-		HSSFWorkbook hwb = excel.excelGenerate(prograd,list);
+		XSSFWorkbook hwb = excel.excelGenerate(prograd,list);
 		System.out.println(hwb);
 			if(hwb!=null)
 				request.setAttribute("upload_message", "File downloaded successfully");
 				rd = this.getServletContext().getRequestDispatcher("/WEB-INF/views/result.jsp");
 				rd.forward(request, response);
-*/
+
 	}
 }
